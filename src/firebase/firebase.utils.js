@@ -29,4 +29,28 @@ export const signInWithGoogle = () => {
     });
 };
 
+export const createUserProfileDocument = async (userAuth, moreInfo) => {
+  if (!userAuth) return;
+  // console.log("the firestore: ", firestore.doc("users/128fd"));
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+  console.log(snapShot);
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...moreInfo,
+      });
+    } catch (error) {
+      console.log("error creating user");
+    }
+  }
+  return userRef;
+};
+
 export default firebase;

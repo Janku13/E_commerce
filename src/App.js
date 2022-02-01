@@ -6,6 +6,7 @@ import Header from "./components/header/header.component";
 import Form from "./pages/form/form.component";
 import "./App.css";
 import { auth } from "./firebase/firebase.utils";
+import { createUserProfileDocument } from "./firebase/firebase.utils";
 
 function App() {
   const [isUser, setIsUser] = useState({
@@ -13,10 +14,20 @@ function App() {
   });
 
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged((user) => {
-      setIsUser({
-        currentUser: user,
-      });
+    const unsub = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapshot) => {
+          setIsUser({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            },
+          });
+        });
+      } else {
+        setIsUser({ currentUser: userAuth });
+      }
     });
     return () => {
       unsub();

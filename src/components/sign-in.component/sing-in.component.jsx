@@ -3,7 +3,7 @@ import './sign-in-and-up.style.scss'
 import FormInput from "../input-container/input.container";
 import CustomButton from "../custom-button/custom-button.component";
 
-import {signInWithGoogle } from "../../firebase/firebase.utils";
+import {auth,signInWithGoogle } from "../../firebase/firebase.utils";
 
 export default function SingIn(){
     const [formData,setFormData] = useState({
@@ -11,9 +11,16 @@ export default function SingIn(){
         password:''
     })
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault()
-        console.log(e.target)
+        const {email,password} = formData
+
+        try{
+            await auth.signInWithEmailAndPassword(email,password)
+            setFormData({email:'',password:''})
+        }catch(error){
+            console.log(error)
+        }
     }
 
     const handleChange = (e)=>{
