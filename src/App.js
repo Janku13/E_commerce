@@ -7,26 +7,21 @@ import Form from "./pages/form/form.component";
 import "./App.css";
 import { auth } from "./firebase/firebase.utils";
 import { createUserProfileDocument } from "./firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.action";
 
 function App() {
-  const [isUser, setIsUser] = useState({
-    currentUser: null,
-  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot((snapshot) => {
-          setIsUser({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data(),
-            },
-          });
+          return dispatch(setCurrentUser(snapshot));
         });
       } else {
-        setIsUser({ currentUser: userAuth });
+        return dispatch(setCurrentUser(userAuth));
       }
     });
     return () => {
@@ -36,7 +31,7 @@ function App() {
 
   return (
     <div>
-      <Header currentUser={isUser.currentUser} />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
