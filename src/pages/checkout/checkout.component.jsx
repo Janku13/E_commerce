@@ -7,7 +7,7 @@ import "./checkout.styles.scss";
 export default function CheckoutPage() {
 
   const cartItemsList = useSelector((state) => state.cart.cartItems);
-  const item = cartItemsList.map(item=> <CheckoutItem item={item}/>)  
+  const item = cartItemsList.map(item=> <CheckoutItem key={item.id} item={item}/>)  
 
 
   const headerItems = ["Product", "Description", "Quantity", "Unit Price", "Remove"];
