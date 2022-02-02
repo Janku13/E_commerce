@@ -5,11 +5,14 @@ import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import { auth } from "../../firebase/firebase.utils"; 
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 
 
  function Header (){
     
     const currentUser = useSelector((state) => state.user.currentUser);
+    const showCart = useSelector((state) => state.cart.hidden);
 
     return <div className="header">
                 <Link to="/" className="logo-container">
@@ -24,7 +27,15 @@ import { auth } from "../../firebase/firebase.utils";
                         :
                         <Link className="option" to='/form'>SIGN IN</Link>
                     }
+                    <CartIcon/>
                 </div>
+                {
+                    showCart ?
+                    <CartDropDown/>
+                    :
+                    ""
+                }
+                
            </div>
 }
 

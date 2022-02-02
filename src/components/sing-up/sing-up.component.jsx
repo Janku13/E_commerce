@@ -51,7 +51,7 @@ export default function SignUp(){
     return (
         <div className="sign-up">
             <h2 className="title">I do not have an account</h2>
-
+            <span>Sign up with email and password</span>
             <form className = 'sign-up-form' onSubmit={(e)=>handleSubmit(e)}>
                 <FormInput 
                     type='text'

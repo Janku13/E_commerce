@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import HomePage from "./pages/homepage/homepage.component";
-import { Route, Routes } from "react-router-dom";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import Form from "./pages/form/form.component";
+import { setCurrentUser } from "./redux/user/user.action";
 import "./App.css";
+
 import { auth } from "./firebase/firebase.utils";
 import { createUserProfileDocument } from "./firebase/firebase.utils";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./redux/user/user.action";
 
 function App() {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,12 +35,14 @@ function App() {
 
   return (
     <div>
+      {console.log("1", currentUser)}
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/form" element={<Form />} />
+        <Route path="/form" element={currentUser ? <HomePage /> : <Form />} />
       </Routes>
+      {console.log("2", currentUser)}
     </div>
   );
 }
