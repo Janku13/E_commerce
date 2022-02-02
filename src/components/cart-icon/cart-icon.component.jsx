@@ -10,7 +10,7 @@ function CartIcon () {
 
     const dispatch = useDispatch();
 
-    const showCart = useSelector((state) => state);
+   
 
     const toggleCartStatus = ()=>{
         dispatch(toggleCartHidden())

@@ -12,7 +12,7 @@ import CartDropDown from "../cart-dropdown/cart-dropdown.component";
  function Header (){
     
     const currentUser = useSelector((state) => state.user.currentUser);
-    const showCart = useSelector((state) => state.cart.hidden);
+    const hideCart = useSelector((state) => state.cart.hidden);
 
     return <div className="header">
                 <Link to="/" className="logo-container">
@@ -30,7 +30,7 @@ import CartDropDown from "../cart-dropdown/cart-dropdown.component";
                     <CartIcon/>
                 </div>
                 {
-                    showCart ?
+                    !hideCart ?
                     <CartDropDown/>
                     :
                     ""
