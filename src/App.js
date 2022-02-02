@@ -7,6 +7,7 @@ import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import Form from "./pages/form/form.component";
 import { setCurrentUser } from "./redux/user/user.action";
+import CheckoutPage from "./pages/checkout/checkout.component";
 import "./App.css";
 
 import { auth } from "./firebase/firebase.utils";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/form" element={currentUser ? <HomePage /> : <Form />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
       {console.log("2", currentUser)}
     </div>

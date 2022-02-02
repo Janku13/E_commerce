@@ -13,7 +13,7 @@ import CartDropDown from "../cart-dropdown/cart-dropdown.component";
     
     const currentUser = useSelector((state) => state.user.currentUser);
     const hideCart = useSelector((state) => state.cart.hidden);
-
+    
     return <div className="header">
                 <Link to="/" className="logo-container">
                     <Logo className="logo"/>
