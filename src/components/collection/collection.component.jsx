@@ -13,7 +13,8 @@ export default function CollectionPage(){
     const choosenItem = shopCollection.find(item=>item.routeName === collectionId )
     const choosenItemComponents = choosenItem ? choosenItem.items.map(item=> <CollectionItem key={item.id} data = {item}/>) : null
     const title = choosenItemComponents ? choosenItem.title: "Please Insert A valid Param"
-    return <div className="collection-page">
+   
+   return <div className="collection-page">
             <h2 className="title">{title}</h2>
             <div className="items">
             {choosenItemComponents}

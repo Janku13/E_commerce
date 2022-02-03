@@ -2,6 +2,7 @@ import React from "react";
 import {  useDispatch,useSelector } from "react-redux";
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
+import StripeCheckoutButoon from "../../components/stripe-button/stripe-button.component";
 import "./checkout.styles.scss";
 
 export default function CheckoutPage() {
@@ -28,6 +29,12 @@ export default function CheckoutPage() {
       <div className="checkout-header">{headerBlock}</div>
       {item}
       <div className="total">TOTAL: ${totalPrice}</div>
+      <div className="test-warning">
+        *Use the following test data provided by strip*
+         <br />
+         4242 4242 4242 4242 - Exp:01/23 - CVV:123
+      </div>
+      <StripeCheckoutButoon price={totalPrice}/>
     </div>
   );
 }
