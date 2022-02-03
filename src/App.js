@@ -40,7 +40,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopPage />} />
+        <Route path="shop/*" element={<ShopPage />} />
         <Route path="/form" element={currentUser ? <HomePage /> : <Form />} />
         <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
