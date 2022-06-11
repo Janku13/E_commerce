@@ -1,7 +1,6 @@
 import React from "react";
 import StripeCheckout from 'react-stripe-checkout'
-
-
+import axios from ("axios")
 
 export default function StripeCheckoutButoon({price}){
 
@@ -9,12 +8,24 @@ export default function StripeCheckoutButoon({price}){
     const publishableKey = 'pk_test_51KP4ZDAz0UubsMyc0dC7sBPz1IGWUv2KRESKVVD1CumLOBEGVqjcHhrvucq2o8pPaWA9SOyqcEsGyj25FdvlspCo00ososILQC'
 
     function onToken (token){
-        console.log(token)
-      return alert("Payment Successful")
+       axios({
+           url:'payment',
+           method:'post',
+            data:{
+                amount:priceForStripe,
+                token
+            }
+       })
+       .then(response => {
+           alert('Payment successful');
+       }).catch(error=>{
+           console.log('Payment error: ',JSON.parse(error))
+           alert("error try again")
+       })
     }
 
     return (
-        <StripeCheckout 
+        <StripeCheckout
             label= 'Pay Now'
             name = 'CRWN Clothing Ltd'
             billingAddress
